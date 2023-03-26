@@ -20,9 +20,9 @@
 
 * 主要思想：ResNet从结构入手，基本结构如下图所示，F(x)在训练过程中，可以由网络自动学习，如果**网络学习的F(x)为0**，那么我们的网络具备identity（浅层）的拟合能力（起码不会比浅层差，而是与浅层一样的效果）；如果网络学习的**F(x)为其他函数**，那么模型的表现能力相较原来的identity会得到提升，我们给每个block开出一条支路的目的，是为了让网络具有选择的“权利”，避免深层“退化”（出现退化的话，F(x)可以学习成0）.
 
-  <img src="C:\Users\Hyuno\AppData\Roaming\Typora\typora-user-images\image-20221021210621846.png" alt="image-20221021210621846" style="zoom:50%;" />
+  <img src="./images/image-20221021210621846.png" alt="image-20221021210621846" style="zoom:50%;" />
 
-* 网络结构：<img src="C:\Users\Hyuno\AppData\Roaming\Typora\typora-user-images\image-20221021211408779.png" alt="image-20221021211408779" style="zoom:50%;" />
+* 网络结构：<img src="./images/image-20221021211408779.png" alt="image-20221021211408779" style="zoom:50%;" />
 
 #### RNN
 
@@ -30,11 +30,11 @@
 
 * 想让神经网络有“记忆”，上一次的输出先保存起来，需要作为下一次的输入
 
-  <img src="C:\Users\Hyuno\AppData\Roaming\Typora\typora-user-images\image-20221020115724172.png" alt="image-20221020115724172" style="zoom:50%;" />
+  <img src="./images/image-20221020115724172.png" alt="image-20221020115724172" style="zoom:50%;" />
 
-* RNN可以被看做是同一神经网络的多次复制，每个神经网络模块会把消息传递给下一个<img src="C:\Users\Hyuno\AppData\Roaming\Typora\typora-user-images\image-20221020140637185.png" alt="image-20221020140637185" style="zoom:50%;" />
+* RNN可以被看做是同一神经网络的多次复制，每个神经网络模块会把消息传递给下一个<img src="./images/image-20221020140637185.png" alt="image-20221020140637185" style="zoom:50%;" />
 
-* 双向RNN：看到的范围更广<img src="C:\Users\Hyuno\AppData\Roaming\Typora\typora-user-images\image-20221020120054289.png" alt="image-20221020120054289" style="zoom:50%;" />
+* 双向RNN：看到的范围更广<img src="./images/image-20221020120054289.png" alt="image-20221020120054289" style="zoom:50%;" />
 
 * 局限性： RNN 会受到**短时记忆**的影响。如果一条序列足够长，那它们将**很难将信息从较早的时间步传送到后面的时间步**；原因是在递归神经网络中，RNN的**早期层**获得**小梯度更新会停止学习**。 由于这些层不学习，RNN 可以忘记它在较长序列中看到的内容，因此具有短时记忆
 
@@ -42,7 +42,7 @@
 
   * 记忆能力有限，记住最重要的，忘记无关紧要的
 
-  * <img src="C:\Users\Hyuno\AppData\Roaming\Typora\typora-user-images\image-20221020141549518.png" alt="image-20221020141549518" style="zoom:50%;" />
+  * <img src="./images/image-20221020141549518.png" alt="image-20221020141549518" style="zoom:50%;" />
 
   * **LSTM的“门结构”**
 
@@ -50,20 +50,20 @@
 
     如此，0代表“不许任何量通过”，1就指“允许任意量通过”！从而使得网络就能了解哪些数据是需要遗忘，哪些数据是需要保存。
 
-    * 忘记门：			<img src="C:\Users\Hyuno\AppData\Roaming\Typora\typora-user-images\image-20221020164627502.png" alt="image-20221020164627502" style="zoom: 50%;" />
+    * 忘记门：			<img src="./images/image-20221020164627502.png" alt="image-20221020164627502" style="zoom: 50%;" />
       * 该忘记门会读取上一个输出![img](https://julyedu-img.oss-cn-beijing.aliyuncs.com/quesbase64155706754786217349.svg)和当前输入![img](https://julyedu-img.oss-cn-beijing.aliyuncs.com/quesbase64155706756757918470.svg)，做一个Sigmoid 的非线性映射，然后输出一个向量![f_{t}](https://private.codecogs.com/gif.latex?f_%7Bt%7D)（该向量每一个维度的值都在0到1之间，1表示完全保留，0表示完全舍弃，相当于记住了重要的，忘记了无关紧要的），最后与细胞状态![img](https://julyedu-img.oss-cn-beijing.aliyuncs.com/quesbase64155706757691155460.svg)相乘
-    * 输入门：            <img src="C:\Users\Hyuno\AppData\Roaming\Typora\typora-user-images\image-20221020165011359.png" alt="image-20221020165011359" style="zoom:50%;" />
+    * 输入门：            <img src="./images/image-20221020165011359.png" alt="image-20221020165011359" style="zoom:50%;" />
       * 确定什么样的新信息被存放在细胞状态中，包含两个部分：
         第一，sigmoid层称“输入门层”决定什么值我们将要更新；
         第二，一个tanh层创建一个新的候选值向量![img](https://julyedu-img.oss-cn-beijing.aliyuncs.com/quesbase64155706765888087563.svg)，会被加入到状态中。 
-    * **更新细胞状态**： <img src="C:\Users\Hyuno\AppData\Roaming\Typora\typora-user-images\image-20221020165322890.png" alt="image-20221020165322890" style="zoom:50%;" />
+    * **更新细胞状态**： <img src="./images/image-20221020165322890.png" alt="image-20221020165322890" style="zoom:50%;" />
       * 我们把旧状态与![img](https://julyedu-img.oss-cn-beijing.aliyuncs.com/quesbase6415570677073428868.svg)相乘，丢弃掉我们确定需要丢弃的信息。接着加上![img](https://julyedu-img.oss-cn-beijing.aliyuncs.com/quesbase64155706771729335767.svg)。这就是新的候选值，根据我们决定更新每个状态的程度进行变化。
-    * 输出门：![image-20221020165731650](C:\Users\Hyuno\AppData\Roaming\Typora\typora-user-images\image-20221020165731650.png)
+    * 输出门：![image-20221020165731650](./images/image-20221020165731650.png)
       * 首先，我们运行一个sigmoid层来确定细胞状态的哪个部分将输出出去。接着，我们把细胞状态通过tanh进行处理（得到一个在-1到1之间的值）并将它和sigmoid门的输出相乘，最终我们仅仅会输出我们确定输出的那部分。
 
 #### VGG（visual geometry group by Oxford university）
 
-* <img src="C:\Users\Hyuno\AppData\Roaming\Typora\typora-user-images\image-20221018110842592.png" alt="image-20221018110842592" style="zoom:50%;" />
+* <img src="./images/image-20221018110842592.png" alt="image-20221018110842592" style="zoom:50%;" />
 * VGG参数非常多，主要原因是第一层起flatten作用的全连接层的参数过多
 * VGG的前两层卷积层占据了绝大部分内存来计算（收到图片输入大小影响）
 * VGG**全部使用3×3卷积核**的原因：利用两层3×3卷积核去代替一个5×5卷积核，由于深度变深，模型的非线性能力更强，且参数数量也较少（**核心的思想为使用多层3×3卷积核去代替调更大的一层卷积核来减少参数加深深度**）
@@ -74,8 +74,8 @@
 
 * 核心思想
   * Generative Adversarial Networks
-  * 损失函数：![image-20221015163802591](C:\Users\Hyuno\AppData\Roaming\Typora\typora-user-images\image-20221015163802591.png)
-  * ![image-20221015164052674](C:\Users\Hyuno\AppData\Roaming\Typora\typora-user-images\image-20221015164052674.png)
+  * 损失函数：![image-20221015163802591](./images/image-20221015163802591.png)
+  * ![image-20221015164052674](./images/image-20221015164052674.png)
 * 创新点
   * 生成两个模型，一个是**生成**模型，一个是辨别模型，两者相对抗，使得生成模型更接近“真实”，最后使辨别器“无能为力”
 * 可借鉴的使用方法
@@ -92,46 +92,46 @@
 
   * 解决输入不只是一个向量，且每个向量长度不一样的问题，解决多输入且输入相关联的问题，self-attention层考虑上下文，然后给出一个输入的输出，再作为之后的网络的输入
 
-    <img src="C:\Users\Hyuno\AppData\Roaming\Typora\typora-user-images\image-20221016160845090.png" alt="image-20221016160845090" style="zoom: 33%;" />
+    <img src="./images/image-20221016160845090.png" alt="image-20221016160845090" style="zoom: 33%;" />
 
 * 原理：
 
-  * <img src="C:\Users\Hyuno\AppData\Roaming\Typora\typora-user-images\image-20230220214019968.png" alt="image-20230220214019968" style="zoom: 33%;" />
+  * <img src="./images/image-20230220214019968.png" alt="image-20230220214019968" style="zoom: 33%;" />
 
   * 1.**计算不同向量之间的关联性α**：（有多种方法）
 
-    * 点乘模块来计算相关系数：<img src="C:\Users\Hyuno\AppData\Roaming\Typora\typora-user-images\image-20221016161245386.png" alt="image-20221016161245386" style="zoom:33%;" />
+    * 点乘模块来计算相关系数：<img src="./images/image-20221016161245386.png" alt="image-20221016161245386" style="zoom:33%;" />
     * 将各个输入向量乘以相应权重参数，得到新的向量后，**用这些新的向量来计算向量之间的相关性**，而**引入权重参数的目的是让网络能够进行学习**，不断地调整权重参数来更好的分析各个输入向量之间的相关性（用softmax是经验问题）
 
-    <img src="C:\Users\Hyuno\AppData\Roaming\Typora\typora-user-images\image-20221016161448226.png" alt="image-20221016161448226" style="zoom:33%;" />
+    <img src="./images/image-20221016161448226.png" alt="image-20221016161448226" style="zoom:33%;" />
 
   * 2.根据每个向量之间的关联性来抽取重要的信息：
 
     * 将各个原始的输入再乘以另一个权重参数得到新向量V，V与第一个输入向量对应的相关系数相乘再全部相加，来**得到针对于第一个输入向量的输出值b1**，**这个值是同时考虑了其他输入向量后得到的一个向量，包含了更多的信息**
 
-    <img src="C:\Users\Hyuno\AppData\Roaming\Typora\typora-user-images\image-20221016161927598.png" alt="image-20221016161927598" style="zoom:33%;" />
+    <img src="./images/image-20221016161927598.png" alt="image-20221016161927598" style="zoom:33%;" />
 
   * 1、2两步的并行矩阵计算方法：
 
-    （1）<img src="C:\Users\Hyuno\AppData\Roaming\Typora\typora-user-images\image-20221016162350453.png" alt="image-20221016162350453" style="zoom:33%;" />
+    （1）<img src="./images/image-20221016162350453.png" alt="image-20221016162350453" style="zoom:33%;" />
 
-    （2）![image-20221016162622496](C:\Users\Hyuno\AppData\Roaming\Typora\typora-user-images\image-20221016162622496.png)
+    （2）![image-20221016162622496](./images/image-20221016162622496.png)
 
-    （3）<img src="C:\Users\Hyuno\AppData\Roaming\Typora\typora-user-images\image-20221016162806424.png" alt="image-20221016162806424" style="zoom: 50%;" />
+    （3）<img src="./images/image-20221016162806424.png" alt="image-20221016162806424" style="zoom: 50%;" />
 
-    （4）<img src="C:\Users\Hyuno\AppData\Roaming\Typora\typora-user-images\image-20221016162917412.png" alt="image-20221016162917412" style="zoom:33%;" />
+    （4）<img src="./images/image-20221016162917412.png" alt="image-20221016162917412" style="zoom:33%;" />
 
     **引入了q、k、v三个可网络学习的参数去学习输入向量之间的重要性和关联度**
 
-    （5）拓展：**多头机制**，**引入更多参数**进行学习,不同的参数负责不同的相关性，多头机制丰富了这种相关性，具体做法就是在基础的参数（**q、k、v**）上，再衍生出多个新的参数（**qi1，qi2;ki1,ki2;vi1,vi2**），然后各自学习各自的相关性（qi1与ki1作运算）<img src="C:\Users\Hyuno\AppData\Roaming\Typora\typora-user-images\image-20221016163145578.png" alt="image-20221016163145578" style="zoom:50%;" />
+    （5）拓展：**多头机制**，**引入更多参数**进行学习,不同的参数负责不同的相关性，多头机制丰富了这种相关性，具体做法就是在基础的参数（**q、k、v**）上，再衍生出多个新的参数（**qi1，qi2;ki1,ki2;vi1,vi2**），然后各自学习各自的相关性（qi1与ki1作运算）<img src="./images/image-20221016163145578.png" alt="image-20221016163145578" style="zoom:50%;" />
 
 * 在自注意力机制中，学习不到输入向量之间的位置关系（时序、顺序关系），若输入数据的位置关系对预测结果有影响的话，需要考虑位置关系，这时就需要引入能够表征位置关系的编码：
 
-  ​							   <img src="C:\Users\Hyuno\AppData\Roaming\Typora\typora-user-images\image-20221016163555144.png" alt="image-20221016163555144" style="zoom: 50%;" />
+  ​							   <img src="./images/image-20221016163555144.png" alt="image-20221016163555144" style="zoom: 50%;" />
 
 * **将Attention应用在图片处理上：**
 
-  * <img src="C:\Users\Hyuno\AppData\Roaming\Typora\typora-user-images\image-20230306204010508.png" alt="image-20230306204010508" style="zoom:50%;" />
+  * <img src="./images/image-20230306204010508.png" alt="image-20230306204010508" style="zoom:50%;" />
 
   * 把每个像素看成一个三维的向量，整张图片就有（5×10）个三维向量，这样就可以使用Attention来处理图片
 
@@ -139,14 +139,14 @@
 
     * Attention在对一个像素进行计算时，是考虑了图片的其他所有向量，然后进行学习，最后自己学出来一个形状的窗口，而CNN只考虑一个固定窗口范围内的向量
 
-    ![image-20221016164155414](C:\Users\Hyuno\AppData\Roaming\Typora\typora-user-images\image-20221016164155414.png)
+    ![image-20221016164155414](./images/image-20221016164155414.png)
 
-  * **Attention与RNN的关系**：Attention为并行计算，在计算速度上比RNN更快<img src="C:\Users\Hyuno\AppData\Roaming\Typora\typora-user-images\image-20221016164835488.png" alt="image-20221016164835488" style="zoom:50%;" />
+  * **Attention与RNN的关系**：Attention为并行计算，在计算速度上比RNN更快<img src="./images/image-20221016164835488.png" alt="image-20221016164835488" style="zoom:50%;" />
 
 
 #### Transformer
 
-​	<img src="C:\Users\Hyuno\AppData\Roaming\Typora\typora-user-images\image-20221017171400812.png" alt="image-20221017171400812" style="zoom:50%;" />
+​	<img src="./images/image-20221017171400812.png" alt="image-20221017171400812" style="zoom:50%;" />
 
 * Sequence to sequence Model
 
@@ -158,7 +158,7 @@
     * 可以用于目标检测
 
   * 普遍的架构：
-    * <img src="C:\Users\Hyuno\AppData\Roaming\Typora\typora-user-images\image-20230307174810718.png" alt="image-20230307174810718" style="zoom:33%;" />
+    * <img src="./images/image-20230307174810718.png" alt="image-20230307174810718" style="zoom:33%;" />
 
 * Beam Search
 
@@ -166,29 +166,29 @@
 
   * **Cross attention**：
 
-  <img src="C:\Users\Hyuno\AppData\Roaming\Typora\typora-user-images\image-20221017170945553.png" alt="image-20221017170945553" style="zoom: 33%;" />
+  <img src="./images/image-20221017170945553.png" alt="image-20221017170945553" style="zoom: 33%;" />
 
   
 
   * Encoder：
 
-    * <img src="C:\Users\Hyuno\AppData\Roaming\Typora\typora-user-images\image-20221017165025227.png" alt="image-20221017165025227" style="zoom: 33%;" />
+    * <img src="./images/image-20221017165025227.png" alt="image-20221017165025227" style="zoom: 33%;" />
 
-    * <img src="C:\Users\Hyuno\AppData\Roaming\Typora\typora-user-images\image-20230307190547325.png" alt="image-20230307190547325" style="zoom:33%;" />
+    * <img src="./images/image-20230307190547325.png" alt="image-20230307190547325" style="zoom:33%;" />
 
-    * 对于第一个block：**首先做一个self-attention，并做残差连接，最后做一个归一化，得到第一个输出，随后将他作为全连接神经网络的输入（依旧做残差连接），再做一次归一化得到最后的输出**；上述整个过程为一个block，即为transformer中的encoder架构<img src="C:\Users\Hyuno\AppData\Roaming\Typora\typora-user-images\image-20230307185909411.png" alt="image-20230307185909411" style="zoom: 50%;" />
+    * 对于第一个block：**首先做一个self-attention，并做残差连接，最后做一个归一化，得到第一个输出，随后将他作为全连接神经网络的输入（依旧做残差连接），再做一次归一化得到最后的输出**；上述整个过程为一个block，即为transformer中的encoder架构<img src="./images/image-20230307185909411.png" alt="image-20230307185909411" style="zoom: 50%;" />
 
   * Decoder：
 
     * Decoder 是在 Encoder的基础上，增**加了一个接收Encoder输出的block，进行Cross attention计算** ，然后**最初的输入是一个特殊的Masked Self-attention层**(考虑了时序关系、前后关系，**只看当前位置前方的信息**)
 
-    <img src="C:\Users\Hyuno\AppData\Roaming\Typora\typora-user-images\image-20230307193702882.png" alt="image-20230307193702882" style="zoom: 50%;" />
+    <img src="./images/image-20230307193702882.png" alt="image-20230307193702882" style="zoom: 50%;" />
 
     * **Cross attention**：
-      * ![image-20230307193959826](C:\Users\Hyuno\AppData\Roaming\Typora\typora-user-images\image-20230307193959826.png)
-    * **encoder与decoder联合运作的过程**：<img src="C:\Users\Hyuno\AppData\Roaming\Typora\typora-user-images\image-20230307191657388.png" alt="image-20230307191657388" style="zoom: 33%;" />
-      * <img src="C:\Users\Hyuno\AppData\Roaming\Typora\typora-user-images\image-20221017165801776.png" alt="image-20221017165801776" style="zoom: 33%;" />
-    * NAT的表现一般没有AT好<img src="C:\Users\Hyuno\AppData\Roaming\Typora\typora-user-images\image-20221017170612262.png" alt="image-20221017170612262" style="zoom:50%;" />
+      * ![image-20230307193959826](./images/image-20230307193959826.png)
+    * **encoder与decoder联合运作的过程**：<img src="./images/image-20230307191657388.png" alt="image-20230307191657388" style="zoom: 33%;" />
+      * <img src="./images/image-20221017165801776.png" alt="image-20221017165801776" style="zoom: 33%;" />
+    * NAT的表现一般没有AT好<img src="./images/image-20221017170612262.png" alt="image-20221017170612262" style="zoom:50%;" />
 
 #### BERT（Bidirectional Encoder Representation from Transformers）
 
@@ -208,12 +208,12 @@
 
 #### CLIP（Contrastive Language-Image Pre-training）
 
-![image-20230219200438288](C:\Users\Hyuno\AppData\Roaming\Typora\typora-user-images\image-20230219200438288.png)
+![image-20230219200438288](./images/image-20230219200438288.png)
 
 #### DELLE2（OpenAI的图片生成模型）
 
-* 将CLIP模型和GLIDE模型融合到了一起![image-20230113145154429](C:\Users\Hyuno\AppData\Roaming\Typora\typora-user-images\image-20230113145154429.png)
-* <img src="C:\Users\Hyuno\AppData\Roaming\Typora\typora-user-images\image-20230117164822727.png" alt="image-20230117164822727" style="zoom:50%;" /><img src="C:\Users\Hyuno\AppData\Roaming\Typora\typora-user-images\image-20230117164923983.png" alt="image-20230117164923983" style="zoom:50%;" />
+* 将CLIP模型和GLIDE模型融合到了一起![image-20230113145154429](./images/image-20230113145154429.png)
+* <img src="./images/image-20230117164822727.png" alt="image-20230117164822727" style="zoom:50%;" /><img src="./images/image-20230117164923983.png" alt="image-20230117164923983" style="zoom:50%;" />
 
 #### DMTet
 
